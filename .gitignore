@@ -1,3 +1,10 @@
+# mine
+resources/views/bootstrap
+public/js
+public/css
+public/fonts
+
+
 vendor/
 node_modules/
 
@@ -65,3 +72,6 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+app/Http/Controllers/TestController.php
+resources/assets/sass/bootstrap_popover.scss
+resources/assets/sass/joined.scss
