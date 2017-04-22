@@ -45,9 +45,9 @@ return [
 	
 		'vids' => [
 			'driver' => 'local',
-			'root' => '',
+			'root' => 'D:/home/site/public/vids_storage',
 			'visibility' => 'public',
-			'url' => 'vids/storage'
+			'url' => 'vids_storage'
 		],
 
         'local' => [

@@ -51,7 +51,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://test.gob.dp'),
+    'url' => env('APP_URL', 'http://laratestdp.azurewebsites.net'),
 
     /*
     |--------------------------------------------------------------------------
