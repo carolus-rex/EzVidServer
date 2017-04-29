@@ -1,0 +1,18 @@
+{
+	"Estado": "State",
+
+	"No Visto": "Unchecked",
+	"Visto": "Checked",
+	"Aprobado": "Aproved",
+
+	"Aprobar": "Aprove",
+	"Borrar": "Delete",
+
+	"Todos": "All",
+	"Aprobados": "Aproved",
+	"Vistos": "Checked",
+	"No Vistos": "Unchecked",
+
+	"Anterior": "Previous",
+	"Siguiente": "Next"
+}

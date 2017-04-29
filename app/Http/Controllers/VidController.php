@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Storage;
 
 use Illuminate\Support\Facades\DB;
 
+use Illuminate\Support\Facades\App;
+
 use Symfony\Component\Process\Process;
 
 use Illuminate\Database\Eloquent\Collection;
@@ -20,35 +22,35 @@ class VidController extends Controller
      * @return \Illuminate\Http\Response
      */
 	
-	private function get_all_vids(){
-		return DB::table('estado_videos')->pluck('video');
+	private function get_all_vids_names(){
+		return DB::table('vids')->pluck('name');
 	}
 	
-	private function get_vid_status($vid){
-		return DB::table('estado_videos')->where('video', $vid)->value('estado');
+	private function get_vid_state($name){
+		return DB::table('vids')->where('name', $name)->value('state');
 	}
 	
-    private function update_vid_status($vid, $status){
-		DB::table('estado_videos')->where('video', $vid)->update(['estado' => $status]);
+    private function update_vid_state($name, $state){
+		DB::table('vids')->where('name', $name)->update(compact('state'));
 	}
 	
 	private function add_new_vids(){
 		$ROOT = config('filesystems.disks.vids.root');
 		$THUMBSIZE = 200;
 		
-		$nombres_vids = array_filter(Storage::disk('vids')->files(),function ($file)
+		$vids_names = array_filter(Storage::disk('vids')->files(), function ($file)
 		{
 			return preg_match('/(\.mp4)$/', $file);
 		});
 		
-		$nombres_vids_db = $this->get_all_vids();
+		$db_vids_names = $this->get_all_vids_names();
 		$vids = array();
 		
-		foreach($nombres_vids as $nombre){
-			$nombre = explode(".mp4", $nombre)[0];
-			if (!$nombres_vids_db->contains($nombre)){
+		foreach($vids_names as $name){
+			$name = explode(".mp4", $name)[0];
+			if (!$db_vids_names->contains($name)){
 				// generate thumbnail
-				$process = new Process('ffprobe -i '.$nombre.'.mp4 -show_streams -print_format json',
+				$process = new Process('ffprobe -i '.$name.'.mp4 -show_streams -print_format json',
 									   $ROOT);
 				$process->run();
 				
@@ -63,12 +65,12 @@ class VidController extends Controller
 					$thumbwidth = $width * ($THUMBSIZE / $height);
 				set_time_limit(30);
 				
-				$process = new Process('ffmpeg -i '.$nombre.'.mp4 -vf  "thumbnail,scale='.$thumbwidth.':'.$thumbheight.'" -frames:v 1 thumbnails\\'.$nombre.'.png',
+				$process = new Process('ffmpeg -i '.$name.'.mp4 -vf  "thumbnail,scale='.$thumbwidth.':'.$thumbheight.'" -frames:v 1 thumbnails\\'.$name.'.png',
 									   $ROOT);
 				$process->run();
 				
 				//add to db
-				DB::table('estado_videos')->insert(['video' => $nombre]);
+				dump(DB::table('vids')->insert(compact('name')));
 			}
 		}
 	}
@@ -77,9 +79,9 @@ class VidController extends Controller
 		if ($from === 'fromindex') {
 			$response = redirect()->route('vids.index');
 		} else if ($from === 'fromshow'){
-			$response = redirect()->route('vids.show', ['nombre' => $to]);
+			$response = redirect()->route('vids.show', ['name' => $to]);
 		} else {
-			return view('vids.redirectionerror', compact($from, $to));
+			return view('vids.redirectionerror', compact('from', 'to'));
 		}
 	
 		if ($request->has('unchecked')){
@@ -156,21 +158,21 @@ class VidController extends Controller
 		$show_aproved = $request->cookie("show_aproved", "false");
 		$show_all = $request->cookie("show_all", "true");
 		
-		$query = DB::table('estado_videos');
+		$query = DB::table('vids');
 		
 		if ($show_all === 'true') {
 			// You don't have to do anything, you will query everything later
 		} else {
 			if ($show_unchecked === "true") {
-				$query->orWhere("estado", VID_STATUS_UNCHECKED);
+				$query->orWhere("state", VID_STATE_UNCHECKED);
 			}
 			
 			if ($show_checked === "true") {
-				$query->orWhere("estado", VID_STATUS_CHECKED);
+				$query->orWhere("state", VID_STATE_CHECKED);
 			}
 			
 			if ($show_aproved === "true") {
-				$query->orWhere("estado", VID_STATUS_APROVED);
+				$query->orWhere("state", VID_STATE_APROVED);
 			}
 		}
 		
@@ -188,7 +190,7 @@ class VidController extends Controller
 		// Lets order the query alphabetically for now
 		// maybe in the future we choose to order it by date or dynamically
 		// chosen by the user
-		$vids = $query->orderBy('video', 'asc')->paginate($ELEMENTS_PER_PAGE);
+		$vids = $query->orderBy('name', 'asc')->paginate($ELEMENTS_PER_PAGE);
 		
 		return view("vids.index", ["vids" => $vids,
 								   "thumbs_url" => Storage::disk("vids")->url("thumbnails")]);
@@ -218,47 +220,43 @@ class VidController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  str  $nombre
+     * @param  str  $name
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, $nombre)
+    public function show(Request $request, $name)
     {	
-        $estado = $this->get_vid_status($nombre);
+        $state = $this->get_vid_state($name);
 		
-		if ($estado == VID_STATUS_UNCHECKED)
-			$this->update_vid_status($nombre, VID_STATUS_CHECKED);
+		if ($state == VID_STATE_UNCHECKED)
+			$this->update_vid_state($name, VID_STATE_CHECKED);
 		
-		return view("vids.show", ["nombre" => $nombre,
-								  "estado" => $estado,
-								  "videopath" => "/".Storage::disk('vids')->url("$nombre.mp4")]);
+		return view("vids.show", ["name" => $name,
+								  "state" => $state,
+								  "vidpath" => Storage::disk('vids')->url("$name.mp4")]);
     }
 	
-	public function prev($vid) {
-		$prev_vid = DB::table('estado_videos')->where('video', '<' , $vid)
-											  ->orderBy('video','desc')
-											  ->value('video');
+	public function prev($name) {
+		$prev_vid = DB::table('vids')->where('name', '<' , $name)
 		
 		return redirect()->route("vids.show", ['vid' => $prev_vid]);
 	}
 	
-	public function next($vid) {
-		$next_vid = DB::table('estado_videos')->where('video', '>' , $vid)
-											  ->orderBy('video','asc')
-											  ->value('video');
+	public function next($name) {
+		$next_vid = DB::table('vids')->where('name', '>' , $name)
 		
 		return redirect()->route("vids.show", ['vid' => $next_vid]);
 	}
 	
-	public function gomain(Request $request, $vid){
+	public function gomain(Request $request, $name){
 		$this->add_new_vids();
 
 		$ELEMENTS_PER_PAGE = 40;
 		
-		$vids_after_me_included  = $this->query_vids_with_filters($request)->where('video', '<=' , $vid)
-														 ->orderBy('video', 'asc')->count();
+		$vids_after_me_included  = $this->query_vids_with_filters($request)->where('name', '<=' , $name)
+														 ->orderBy('name', 'asc')->count();
 		
 		$page = floor(($vids_after_me_included - 1)/ $ELEMENTS_PER_PAGE) + 1;
-		return redirect()->route('vids.index', ['page' => $page]);
+		return redirect()->route('vids.index', compact('page'));
 	}
 
     /**
@@ -267,7 +265,7 @@ class VidController extends Controller
      * @param  str  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($nombre)
+    public function edit($name)
     {
         //
     }
@@ -279,11 +277,11 @@ class VidController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $nombre)
+    public function update(Request $request, $name)
     {
-        $this->update_vid_status($nombre, VID_STATUS_APROVED);
+        $this->update_vid_state($name, VID_STATE_APROVED);
 		
-		return redirect()->action('VidController@next', ['vid' => $nombre]);
+		return redirect()->action('VidController@next', compact('name'));
     }
 
     /**
@@ -292,12 +290,12 @@ class VidController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($vid)
+    public function destroy($name)
     {
-		Storage::disk('vids')->delete("$vid.mp4");
-		Storage::disk('vids')->delete("thumbnails/$vid.png");
-		DB::table('estado_videos')->where('video', $vid)->delete();
+		Storage::disk('vids')->delete("$name.mp4");
+		Storage::disk('vids')->delete("thumbnails/$name.png");
+		DB::table('vids')->where('name', $name)->delete();
 		
-		return redirect()->action('VidController@next', ['vid' => $vid]);
+		return redirect()->action('VidController@next', compact('name'));
     }
 }
