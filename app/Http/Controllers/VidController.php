@@ -183,7 +183,7 @@ class VidController extends Controller
     {
 		$this->add_new_vids();
 		
-		$ELEMENTS_PER_PAGE = 40;
+		$ELEMENTS_PER_PAGE = 8;
 		
 		$query = $this->query_vids_with_filters($request);
 		
