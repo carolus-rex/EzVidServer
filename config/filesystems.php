@@ -47,7 +47,7 @@ return [
 			'driver' => 'local',
 			'root' => 'D:/home/site/public/vids_storage',
 			'visibility' => 'public',
-			'url' => 'vids_storage'
+            'url' => env('APP_URL').'/vids_storage'
 		],
 
         'local' => [
