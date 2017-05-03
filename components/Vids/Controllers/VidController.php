@@ -239,6 +239,7 @@ class VidController extends Controller
 	
 	public function prev($name) {
 		$prev_vid = DB::table('vids')->where('name', '<' , $name)
+									 ->orderBy('name','desc')
 									 ->value('name');
 		
 		return redirect()->route("vids.show", ['vid' => $prev_vid]);
@@ -246,6 +247,7 @@ class VidController extends Controller
 	
 	public function next($name) {
 		$next_vid = DB::table('vids')->where('name', '>' , $name)
+									 ->orderBy('name','asc')
 									 ->value('name');
 		
 		return redirect()->route("vids.show", ['vid' => $next_vid]);
