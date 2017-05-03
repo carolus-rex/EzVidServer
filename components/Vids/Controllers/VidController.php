@@ -256,7 +256,7 @@ class VidController extends Controller
 	public function gomain(Request $request, $name){
 		$this->add_new_vids();
 
-		$ELEMENTS_PER_PAGE = 40;
+		$ELEMENTS_PER_PAGE = 8;
 		
 		$vids_after_me_included  = $this->query_vids_with_filters($request)->where('name', '<=' , $name)
 														 ->orderBy('name', 'asc')->count();
