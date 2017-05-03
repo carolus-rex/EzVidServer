@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Components\Vids\Controllers;
 
 use Illuminate\Http\Request;
 
@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\App;
 use Symfony\Component\Process\Process;
 
 use Illuminate\Database\Eloquent\Collection;
+
+use App\Http\Controllers\Controller;
 
 class VidController extends Controller
 {
@@ -70,7 +72,7 @@ class VidController extends Controller
 				$process->run();
 				
 				//add to db
-				dump(DB::table('vids')->insert(compact('name')));
+				DB::table('vids')->insert(compact('name'));
 			}
 		}
 	}
@@ -237,7 +239,6 @@ class VidController extends Controller
 	
 	public function prev($name) {
 		$prev_vid = DB::table('vids')->where('name', '<' , $name)
-									 ->orderBy('video','desc')
 									 ->value('name');
 		
 		return redirect()->route("vids.show", ['vid' => $prev_vid]);
@@ -245,7 +246,6 @@ class VidController extends Controller
 	
 	public function next($name) {
 		$next_vid = DB::table('vids')->where('name', '>' , $name)
-									 ->orderBy('video','asc')
 									 ->value('name');
 		
 		return redirect()->route("vids.show", ['vid' => $next_vid]);

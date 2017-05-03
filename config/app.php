@@ -177,8 +177,12 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider::class,
 
+        Optimus\Api\System\RouteServiceProvider::class,
+        Optimus\Api\System\ViewServiceProvider::class,
+        Optimus\Api\System\TranslationServiceProvider::class,
+
+        Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider::class,
     ],
 
     /*

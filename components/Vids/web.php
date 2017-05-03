@@ -13,7 +13,10 @@
 
 Route::group(['prefix' => LaravelLocalization::setlocale()], function()
 {
-	Route::get('/', function () {
-	    return redirect()->route('vids.index');
-	});
+	Route::post('/vids/setfilter/{fromtype}/{to?}', "VidController@setfilter");
+	Route::get('/vids/{video}/prev', "VidController@prev");
+	Route::get('/vids/{video}/next', "VidController@next");
+	Route::get('/vids/{video}/gomain', "VidController@gomain");
+
+	Route::resource("vids", "VidController");
 });
