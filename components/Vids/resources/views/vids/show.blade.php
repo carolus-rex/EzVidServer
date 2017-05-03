@@ -82,7 +82,7 @@
 				</div>
 			<!--Vid-->
 				<div class="col-xs-8 complete-height">
-					<video class="img-responsive no-overflow-height center-block" autoplay controls muted>
+					<video class="img-responsive no-overflow-height center-block" autoplay controls>
 						<source src={{$vidpath}} type='video/mp4'>
 						Your browser does not support the video tag.
 					</video>
