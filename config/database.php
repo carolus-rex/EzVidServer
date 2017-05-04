@@ -42,7 +42,7 @@ return [
         'mysql' => [
             'driver' => 'mysql',
             'host' => '127.0.0.1',
-            'port' => '50785',
+            'port' => '49215',
             'database' => 'localdb',
             'username' => 'root',
             'password' => 'password',
