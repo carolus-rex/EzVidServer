@@ -287,7 +287,7 @@ class VidController extends Controller
     {
         $this->update_vid_state($name, VID_STATE_APROVED);
 		
-		return redirect()->action('VidController@next', compact('name'));
+		return redirect()->route('vids.next', compact('name'));
     }
 
     /**
@@ -302,6 +302,6 @@ class VidController extends Controller
 		Storage::disk('vids')->delete("thumbnails/$name.png");
 		DB::table('vids')->where('name', $name)->delete();
 		
-		return redirect()->action('VidController@next', compact('name'));
+		return redirect()->route('vids.next', compact('name'));
     }
 }
