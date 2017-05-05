@@ -11,12 +11,16 @@
 |
 */
 
+// THERE IS A BUG WITH action HELPER IN distributed-laravel
+// NOT BEING ABLE TO SEARCH FOR THE CONTROLLER IN THE RIGHT NAMESPACE
+// SO ALWAYS GIVE A NAME TO EVERY ROUTE AND USE THE route HELPER INSTEAD
+
 Route::group(['prefix' => LaravelLocalization::setlocale()], function()
 {
-	Route::post('/vids/setfilter/{fromtype}/{to?}', "VidController@setfilter");
-	Route::get('/vids/{video}/prev', "VidController@prev");
-	Route::get('/vids/{video}/next', "VidController@next");
-	Route::get('/vids/{video}/gomain', "VidController@gomain");
+	Route::post('/vids/setfilter/{fromtype}/{to?}', "VidController@setfilter")->name('vids.setfilter');
+	Route::get('/vids/{video}/prev', "VidController@prev")->name('vids.prev');
+	Route::get('/vids/{video}/next', "VidController@next")->name('vids.next');
+	Route::get('/vids/{video}/gomain', "VidController@gomain")->name('gomain');
 
 	Route::resource("vids", "VidController");
 });
