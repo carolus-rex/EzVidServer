@@ -177,6 +177,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        Components\Vids\VidServiceProvider::class,
 
         Optimus\Api\System\RouteServiceProvider::class,
         Optimus\Api\System\ViewServiceProvider::class,
