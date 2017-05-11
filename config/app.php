@@ -175,7 +175,7 @@ return [
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
+        //App\Providers\RouteServiceProvider::class,
 
         Components\Vids\VidServiceProvider::class,
 
@@ -183,7 +183,12 @@ return [
         Optimus\Api\System\ViewServiceProvider::class,
         Optimus\Api\System\TranslationServiceProvider::class,
 
+        Optimus\ApiConsumer\Provider\LaravelServiceProvider::class,
+
         Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider::class,
+
+        //Laravel\Passport\PassportServiceProvider::class
+        App\Auth\Providers\CookiePassportServiceProvider::class
     ],
 
     /*
