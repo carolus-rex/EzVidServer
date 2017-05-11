@@ -17,6 +17,9 @@
 					</div>
 				</li>
 			</ul>
+			<nav class="nav navbar-nav navbar-right">
+				@include('users.dropdown')
+			</nav>
 				
 		@endsection
 		<!-- Content -->
