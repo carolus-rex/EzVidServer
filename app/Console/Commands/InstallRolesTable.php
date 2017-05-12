@@ -40,7 +40,8 @@ class InstallRolesTable extends Command
     public function handle()
     {
         $result = DB::table('roles')->insert([['name' => 'OWNER', 'can_aprove' => true, 'can_delete' => true],
-                                              ['name' => 'COLLABORATOR', 'can_aprove' => true, 'can_delete' => false]]);
+                                              ['name' => 'COLLABORATOR', 'can_aprove' => true, 'can_delete' => false],
+                                              ['name' => 'REGISTERED', 'can_aprove' => false, 'can_delete' => false]]);
         
         if ($result)
             $this->info("[SUCCESS]: $this->signature");
