@@ -25,7 +25,7 @@ class AddRoleToUsers extends Migration
         });
 
         Schema::table('users', function (Blueprint $table) {
-            $table->unsignedInteger('role_id')->default(0);
+            $table->unsignedInteger('role_id')->default(2);
 
             $table->foreign('role_id')->references('id')->on('roles')
                   ->onDelete('restrict')
@@ -41,6 +41,7 @@ class AddRoleToUsers extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
+            $table->dropForeign(['role_id']);
             $table->dropColumn('role_id');
         });
 

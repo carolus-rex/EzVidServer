@@ -13,7 +13,7 @@ class CreateUser extends Command
      *
      * @var string
      */
-    protected $signature = 'create:user {name}{email}{password=1234}';
+    protected $signature = 'create:user {name}{email}{password=1234}{role=2}';
 
     /**
      * The console command description.
@@ -42,11 +42,13 @@ class CreateUser extends Command
         $name = $this->argument('name');
         $email = $this->argument('email');
         $password = $this->argument('password');
+        $role = $this->argument('role');
 
         DB::table('users')->insert([
             'name' => $name,
             'email' => $email,
-            'password' => password_hash($password, PASSWORD_BCRYPT)
+            'password' => password_hash($password, PASSWORD_BCRYPT),
+            'role_id' => $role
         ]);
     }
 }

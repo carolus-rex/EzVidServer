@@ -30,6 +30,7 @@
 								<span class="glyphicon glyphicon-home"></span>
 							</a>
 							@include('changelocale')
+							@include('users.dropdown')
 							<button class="btn btn-default navbar-btn" data-trigger="click" data-placement="bottom" data-content="menu" data-container="body" data-toggle="popover" data-template='
 							
 
@@ -63,22 +64,9 @@
 		@endsection		
 		<div class="container-fluid">
 			<div class="row complete-height">
-			<!--State form-->
+			<!--States form-->
 				<div class="col-xs-2 complete-height">
-					<h3>@lang(VID_STATE_STRING[$state])</h3>
-					
-					<form class="buttonform-inline" action='{{$name}}' method='POST'>
-						{{csrf_field()}}
-						{{method_field('PUT')}}
-						<input type='submit' class="btn btn-success" value="@lang('Aprobar')" name='Aprobar'>
-					</form>
-					
-					<form class="buttonform-inline" action='{{$name}}' method='POST'>
-						{{csrf_field()}}
-						{{method_field('DELETE')}}
-						<input type='submit' class="btn btn-danger" value="@lang('Borrar')" name='DELETE'>
-					</form>
-					
+					@include('vids.states_form')
 				</div>
 			<!--Vid-->
 				<div class="col-xs-8 complete-height">
