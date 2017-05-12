@@ -6,5 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Vid extends Model
 {
-	// TODO: Fill this
+	public function votes()
+	{
+		return $this->hasMany('Components\Vids\Models\VidVote');
+	}
 }

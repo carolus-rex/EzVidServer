@@ -32,4 +32,7 @@ class User extends Authenticatable
         return $this->belongsTo('Components\Roles\Models\Role');
     }
 
+    public function vids_votes() {
+        return $this->hasMany('Components\Vids\Models\VidsVotes');
+    }
 }
