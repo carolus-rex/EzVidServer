@@ -3,9 +3,17 @@
 namespace Components\Vids\Repositories;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+
+use Components\Vids\Models\Vid;
 
 class VidRepository
 {
+	public function get($name)
+	{
+		return Vid::where('name', $name)->first();
+	}
+
     public function add($name)
     {
         DB::table('vids')->insert(compact('name'));
@@ -64,6 +72,13 @@ class VidRepository
 		}
 
 		return $query;
+	}
+
+	public function vote($name, $vote)
+	{
+		DB::table('vids_votes')->insert(['vid_id'  => $this->get($name)->id,
+										 'user_id' => Auth::user()->id,
+										 'should_keep' => $vote]);
 	}
 
 }

@@ -3,7 +3,7 @@
 Route::group(['prefix' => LaravelLocalization::setlocale()], function()
 {
 	Route::get('/', function () {
-		redirect()->route('vids.index');
+		return redirect()->route('vids.index');
 	});
 
 

@@ -39,5 +39,6 @@ class Install extends Command
     {
         $this->call('migrate');
         $this->call('install:states-table');
+        $this->call('install:roles-table');
     }
 }

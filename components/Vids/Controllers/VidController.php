@@ -101,10 +101,11 @@ class VidController extends Controller
      */
     public function show($name)
     {	
-        $state = $this->vidService->show($name);
+        $vid = $this->vidService->show($name);
 		
-		return view("vids.show", ["name" => $name,
-								  "state" => $state,
+		return view("vids.show", ["vid" => $vid,
+								  "name" => $vid->name,
+								  "state" => $vid->state,
 								  "vidpath" => Storage::disk('vids')->url("$name.mp4")]);
     }
 	
@@ -124,6 +125,13 @@ class VidController extends Controller
 		$page = $this->vidService->gomain($request, $name);
 
 		return redirect()->route('vids.index', compact('page'));
+	}
+
+	public function vote(Request $request, $name) 
+	{
+		$this->vidService->vote($request, $name);
+
+		return redirect()->route('vids.show', ['vid' => $name]);
 	}
 
     /**

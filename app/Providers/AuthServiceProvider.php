@@ -8,6 +8,9 @@ use Laravel\Passport\Passport;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
+use Components\Vids\Models\Vid;
+use Components\Vids\Policies\VidPolicy;
+
 class AuthServiceProvider extends ServiceProvider
 {
     /**
@@ -16,7 +19,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'App\Model' => 'App\Policies\ModelPolicy',
+        Vid::class => VidPolicy::class
     ];
 
     /**
