@@ -33,6 +33,6 @@ class User extends Authenticatable
     }
 
     public function vids_votes() {
-        return $this->hasMany('Components\Vids\Models\VidsVotes');
+        return $this->hasMany('Components\Vids\Models\VidVote');
     }
 }

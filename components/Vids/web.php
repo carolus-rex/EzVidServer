@@ -18,9 +18,12 @@
 Route::group(['prefix' => LaravelLocalization::setlocale()], function()
 {
 	Route::post('/vids/setfilter/{fromtype}/{to?}', "VidController@setfilter")->name('vids.setfilter');
-	Route::get('/vids/{video}/prev', "VidController@prev")->name('vids.prev');
-	Route::get('/vids/{video}/next', "VidController@next")->name('vids.next');
-	Route::get('/vids/{video}/gomain', "VidController@gomain")->name('gomain');
+	
+	Route::get('/vids/{vids}/prev', "VidController@prev")->name('vids.prev');
+	Route::get('/vids/{vids}/next', "VidController@next")->name('vids.next');
+	Route::get('/vids/{vids}/gomain', "VidController@gomain")->name('gomain');
+
+	Route::post('/vids/{vids}/vote', "VidController@vote")->name('vids.vote');
 
 	Route::resource("vids", "VidController");
 });

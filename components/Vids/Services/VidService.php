@@ -93,12 +93,12 @@ class VidService
 	}
 
 	public function show($name) {
-		$state = $this->vidRepository->get_state($name);
+		$vid = $this->vidRepository->get($name);
 		
-		if ($state == VID_STATE_UNCHECKED)
+		if ($vid->state == VID_STATE_UNCHECKED)
 			$this->vidRepository->update_state($name, VID_STATE_CHECKED);
 
-		return $state;
+		return $vid;
 	}
 
 	public function prev($name) {
@@ -119,6 +119,19 @@ class VidService
 								   					 			     ->count();
 		
 		return floor(($vids_after_me_included - 1)/ $ELEMENTS_PER_PAGE) + 1;
+	}
+
+	public function vote($request, $name)
+	{
+		if($request->has('KEEP')) {
+			$vote = true;
+		} else if($request->has('NOTKEEP')) {
+			$vote = false;
+		} else {
+			return 'please dont hack me D:';
+		}
+		
+		$this->vidRepository->vote($name, $vote);
 	}
 
 	public function update($name) {
