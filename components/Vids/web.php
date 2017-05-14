@@ -23,7 +23,7 @@ Route::group(['prefix' => LaravelLocalization::setlocale()], function()
 	Route::get('/vids/{vids}/next', "VidController@next")->name('vids.next');
 	Route::get('/vids/{vids}/gomain', "VidController@gomain")->name('gomain');
 
-	Route::post('/vids/{vids}/vote', "VidController@vote")->name('vids.vote');
+	Route::post('/vids/{vids}/vote', "VidController@vote")->name('vids.vote')->middleware('auth:api');
 
 	Route::resource("vids", "VidController");
 });

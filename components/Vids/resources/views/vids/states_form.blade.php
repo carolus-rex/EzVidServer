@@ -32,12 +32,22 @@
 
 @if(Auth::check())
 	@cannot('vote', $vid)
-		@lang('Ya votaste')
+		<p class="bg-info text-center">
+			@lang('Ya votaste')
+		</p>
 	@endcannot
 @endif
 
 <br>
 
-{{$vid->votes()->where('should_keep', true)->count()}} @lang('No lo borres')
-<br>
-{{$vid->votes()->where('should_keep', false)->count()}} @lang('BORRALO')
+<p class="text-success">
+	<strong>
+		{{$vid->votes()->where('should_keep', true)->count()}} @lang('No lo borres')
+	</strong>
+</p>
+<!--Maybe i should pass the vote model like i do with the vid model instead-->
+<p class="text-danger">
+	<strong>
+		{{$vid->votes()->where('should_keep', false)->count()}} @lang('BORRALO')
+	</strong>
+</p>
