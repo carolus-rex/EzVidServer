@@ -11,8 +11,6 @@
 @section('body')
 		
 		@section('navbar')
-		
-			<div class="container-fluid text-center">
 			
 				<ul class="nav navbar-nav navbar-left">
 					<li>
@@ -26,19 +24,21 @@
 				<ul class="nav navbar-nav center-nav">
 					<li>
 						<div class="btn-group">
+							@include('users.dropdown')
 							<a class="btn btn-default navbar-btn" href={{"$name/gomain"}}>
 								<span class="glyphicon glyphicon-home"></span>
 							</a>
 							@include('changelocale')
-							@include('users.dropdown')
 							<button class="btn btn-default navbar-btn" data-trigger="click" data-placement="bottom" data-content="menu" data-container="body" data-toggle="popover" data-template='
 							
 
 								<nav class="navbar navbar-inverse text-center navbar-static-top">
-								
-									@include("vids.filters_form", ["from" => "fromshow",
-																  "to" => $name])
-																  
+									<div class="container-fluid">
+
+										@include("vids.filters_form", ["from" => "fromshow",
+																	   "to" => $name])
+
+									</div>						  
 								</nav>
 								
 							
@@ -58,8 +58,6 @@
 						</a>
 					</li>
 				</ul>
-				
-			</div>
 			
 		@endsection		
 		<div class="container-fluid">

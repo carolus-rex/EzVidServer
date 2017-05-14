@@ -11,7 +11,20 @@
 	<body>
 		<!-- Navbar -->
 		<nav class="navbar navbar-inverse navbar-static-top">
-			@yield('navbar')
+			<div class="container-fluid text-center">
+				<!--<div class="navbar-header">
+					 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-content" aria-expanded="false">
+				        <span class="sr-only">Toggle navigation</span>
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+      				</button>
+				</div>-
+				<div class="collapse navbar-collapse" id="navbar-content">-
+				LOOKS AWFUL-->
+					@yield('navbar')
+				<!--</div>-->
+			</div>
 		</nav>
 		@yield('body')
 	</body>
