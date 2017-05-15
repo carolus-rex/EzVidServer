@@ -1,4 +1,4 @@
-<form class="navbar-form" action='{{route("vids.index")}}/setfilter/{{$from}}{{isset($to) ? "/$to" : ""}}' method="POST">
+<form class="navbar-form" action="{{route('vids.setfilter', ['from' => $from, 'to' => (isset($to)? $to:'')])}}" method="POST">
 	{{csrf_field()}}
 	<input type="submit" class="btn navbar-btn btn-default {{$show_all == 'true' ? 'active' : ''}}" aria-pressed="{{$show_all}}" autocomplete="off" name="all" value="@lang('Todos')">
 	<div class="btn-group">
