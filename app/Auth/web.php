@@ -12,4 +12,7 @@ Route::group(['prefix' => LaravelLocalization::setlocale()], function()
 	Route::get('/login/refresh', 'LoginController@refresh')->name('login.refresh');
 
 	Route::get('/logout', 'LoginController@logout')->name('login.logout')->middleware('auth:api');
+
+	Route::get('/register','RegisterController@show')->name('register.show');
+	Route::post('/register','RegisterController@register')->name('register');
 });

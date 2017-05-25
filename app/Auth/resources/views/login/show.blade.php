@@ -1,6 +1,7 @@
 @extends('vids.base')
 
 @section('body')
+
 	@section('navbar')
 		<div class="navbar-left">
 			@include('changelocale')

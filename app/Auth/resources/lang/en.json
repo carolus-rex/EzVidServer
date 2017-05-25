@@ -4,5 +4,13 @@
 	"Iniciar Sesión": "Log In",
 	"Correo": "E-mail",
 	"Contraseña": "Password",
-	"Salir": "Log Out"
+	"Salir": "Log Out",
+
+	"Regístrate": "Sign In",
+	"Registrar": "Sign In",
+	"Nombre": "Name",
+	"Confirma la contraseña": "Confirm the password",
+
+	"Haz sido registrado exitosamente": "You have been registered successfully",
+	"Haz clic aqui para ir a la página principal": "Click here to go to main page"
 }
