@@ -1,5 +1,6 @@
 @if (Auth::guest())
-	<a class="btn navbar-btn btn-primary" href="{{route('login')}}">@lang("Ingresa")</a>
+	<a class="btn navbar-btn btn-primary" href="{{ route('login.show') }}">@lang("Ingresa")</a>
+	<a class="btn navbar-btn btn-primary" href="{{ route('register.show') }}">@lang('Regístrate')</a>
 @else
 	<div class="btn-group">
 		<button class="btn navbar-btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -1,0 +1,13 @@
+{
+	"Máximo 255 carateres": "Max 255 characters",
+	"Mínimo 8 caracteres": "Min 8 characters",
+
+	"Necesitamos tu nombre": "We need your name",
+
+	"Necesitamos tu correo": "We need your e-mail",
+	"Ya hay alguien con este correo registrado": "There is someone already registrated with this e-mail",
+	"Este no parece un correo válido": "This does not appear to be a valid email",
+
+	"Tienes que crear una contraseña": "You have to create a password",
+	"Las contraseñas no son iguales": "The passwords does not match"
+}
