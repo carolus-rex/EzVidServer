@@ -5,7 +5,7 @@
 	$xs_colswidth = 12/      2; //vids per row
 @endphp
 
-@extends('vids.base')
+@extends('base')
 
 @section('body')
 

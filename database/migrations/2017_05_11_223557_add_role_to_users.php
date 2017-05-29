@@ -25,7 +25,7 @@ class AddRoleToUsers extends Migration
         });
 
         Schema::table('users', function (Blueprint $table) {
-            $table->unsignedInteger('role_id')->default(2);
+            $table->unsignedInteger('role_id')->default(3);
 
             $table->foreign('role_id')->references('id')->on('roles')
                   ->onDelete('restrict')
