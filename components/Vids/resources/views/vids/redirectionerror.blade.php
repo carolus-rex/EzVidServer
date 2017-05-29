@@ -1,4 +1,4 @@
-@extends("vids.base")
+@extends("base")
 
 @section("body")
 		
