@@ -14,7 +14,7 @@
 			
 				<ul class="nav navbar-nav navbar-left">
 					<li>
-						<a href="{{$name}}/prev" >
+						<a href="{{ route('vids.prev', ['vid' => $name]) }}" >
 							<span class="glyphicon glyphicon-chevron-left"></span>
 							<span class="h4">@lang('Anterior')</span>
 						</a>
@@ -25,7 +25,7 @@
 					<li>
 						<div class="btn-group">
 							@include('users.dropdown')
-							<a class="btn btn-default navbar-btn" href={{"$name/gomain"}}>
+							<a class="btn btn-default navbar-btn" href="{{ route('vids.gomain', ['vid' => $name]) }}">
 								<span class="glyphicon glyphicon-home"></span>
 							</a>
 							@include('changelocale')
@@ -52,7 +52,7 @@
 				
 				<ul class="nav navbar-nav navbar-right">
 					<li>
-						<a href="{{$name}}/next">
+						<a href="{{ route('vids.next', ['vid' => $name]) }}">
 							<span class="h4">@lang('Siguiente')</span>
 							<span class="glyphicon glyphicon-chevron-right"></span>
 						</a>
@@ -69,7 +69,7 @@
 			<!--Vid-->
 				<div class="col-xs-8 complete-height">
 					<video class="img-responsive no-overflow-height center-block" autoplay controls muted>
-						<source src={{$vidpath}} type='video/mp4'>
+						<source src="{{$vidpath}}" type='video/mp4'>
 						Your browser does not support the video tag.
 					</video>
 				</div>

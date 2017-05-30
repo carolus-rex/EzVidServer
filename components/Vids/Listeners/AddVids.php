@@ -50,24 +50,23 @@ class AddVids
             $name = explode(".mp4", $name)[0];
             if (!$db_vids_names->contains($name)){
                 // generate thumbnail
-                $process = new Process('ffprobe -i '.$name.'.mp4 -show_streams -print_format json',
+                $process = new Process('ffprobe -i "'.$name.'.mp4" -show_streams -print_format json',
                                        $ROOT);
                 $process->run();
                 
                 $probejson = json_decode($process->getOutput(), true);
-                dump($probejson);
+
                 $width = $probejson["streams"][0]["width"];
                 $height = $probejson["streams"][0]["height"];
                 $thumbwidth = $THUMBSIZE;
                 $thumbheight = $THUMBSIZE;
                 if ($width > $height)
                     $thumbheight = $height * ($THUMBSIZE / $width);
-                else{
-                    dump($name);         dump($height);}
+                else
                     $thumbwidth = $width * ($THUMBSIZE / $height);
                 set_time_limit(30);
                 
-                $process = new Process('ffmpeg -i "'.$name.'".mp4 -vf  "thumbnail,scale='.$thumbwidth.':'.$thumbheight.'" -frames:v 1 thumbnails\\'.$name.'.png',
+                $process = new Process('ffmpeg -i "'.$name.'.mp4" -vf  "thumbnail,scale='.$thumbwidth.':'.$thumbheight.'" -frames:v 1 "thumbnails\\'.$name.'.png"',
                                        $ROOT);
                 $process->run();
                 
