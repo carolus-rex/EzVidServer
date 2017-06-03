@@ -40,7 +40,7 @@
 				<p class="text-center">
 					<b>@lang("Estado"):</b>
 					<br>
-					@lang(VID_STATE_STRING[$vid->state])
+					@lang(VID_STATE_STRING[$vid->state_id])
 				</p>
 			</div>
 

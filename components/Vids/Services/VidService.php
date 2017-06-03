@@ -95,7 +95,7 @@ class VidService
 	public function show($name) {
 		$vid = $this->vidRepository->get($name);
 		
-		if ($vid->state == VID_STATE_UNCHECKED)
+		if ($vid->state_id == VID_STATE_UNCHECKED)
 			$this->vidRepository->update_state($name, VID_STATE_CHECKED);
 
 		return $vid;

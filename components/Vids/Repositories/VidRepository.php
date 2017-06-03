@@ -24,11 +24,11 @@ class VidRepository
 	}
 	
 	public function get_state($name) {
-		return DB::table('vids')->where('name', $name)->value('state');
+		return DB::table('vids')->where('name', $name)->value('state_id');
 	}
 	
-    public function update_state($name, $state) {
-		DB::table('vids')->where('name', $name)->update(compact('state'));
+    public function update_state($name, $state_id) {
+		DB::table('vids')->where('name', $name)->update(compact('state_id'));
 	}
 
 	public function get_prev($name) {
@@ -59,15 +59,15 @@ class VidRepository
 			// You don't have to do anything, you will query everything later
 		} else {
 			if ($show_unchecked === "true") {
-				$query->orWhere("state", VID_STATE_UNCHECKED);
+				$query->orWhere("state_id", VID_STATE_UNCHECKED);
 			}
 			
 			if ($show_checked === "true") {
-				$query->orWhere("state", VID_STATE_CHECKED);
+				$query->orWhere("state_id", VID_STATE_CHECKED);
 			}
 			
 			if ($show_aproved === "true") {
-				$query->orWhere("state", VID_STATE_APROVED);
+				$query->orWhere("state_id", VID_STATE_APROVED);
 			}
 		}
 
