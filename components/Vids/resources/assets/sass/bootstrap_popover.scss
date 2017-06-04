@@ -1,0 +1,16 @@
+html[id="bootstrap.bones"] {
+	@extend .complete-height;
+	
+	body{
+		@extend .complete-height;
+		
+		> nav:first-child{
+			max-height: 20%;
+		}
+		
+		> div{
+			max-height: 80%;
+			height: 80%;
+		}
+	}
+}
