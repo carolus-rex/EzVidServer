@@ -18,8 +18,8 @@ class VidService
 	}
 
 	public function setfilter($chosen_filter, $chosen_filter_val,
-							  $filters, $show_all, $response) {
-
+							  $filters, $show_all, $response) 
+	{
 		if ($chosen_filter != 'show_all') {
 			$filters[$chosen_filter] = $chosen_filter_val === 'true' ? 'false' : 'true';
 			

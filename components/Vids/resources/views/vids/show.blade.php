@@ -14,7 +14,7 @@
 			
 				<ul class="nav navbar-nav navbar-left">
 					<li>
-						<a href="{{ route('vids.prev', ['vid' => $name]) }}" >
+						<a href="{{ route('vids.prev', ['vid' => $vid->name]) }}" >
 							<span class="glyphicon glyphicon-chevron-left"></span>
 							<span class="h4">@lang('Anterior')</span>
 						</a>
@@ -25,7 +25,7 @@
 					<li>
 						<div class="btn-group">
 							@include('users.dropdown')
-							<a class="btn btn-default navbar-btn" href="{{ route('vids.gomain', ['vid' => $name]) }}">
+							<a class="btn btn-default navbar-btn" href="{{ route('vids.gomain', ['vid' => $vid->name]) }}">
 								<span class="glyphicon glyphicon-home"></span>
 							</a>
 							@include('changelocale')
@@ -36,7 +36,7 @@
 									<div class="container-fluid">
 
 										@include("vids.filters_form", ["from" => "fromshow",
-																	   "to" => $name])
+																	   "to" => $vid->name])
 
 									</div>						  
 								</nav>
@@ -52,7 +52,7 @@
 				
 				<ul class="nav navbar-nav navbar-right">
 					<li>
-						<a href="{{ route('vids.next', ['vid' => $name]) }}">
+						<a href="{{ route('vids.next', ['vid' => $vid->name]) }}">
 							<span class="h4">@lang('Siguiente')</span>
 							<span class="glyphicon glyphicon-chevron-right"></span>
 						</a>
