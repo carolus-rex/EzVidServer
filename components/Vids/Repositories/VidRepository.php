@@ -58,7 +58,7 @@ class VidRepository
 
 	public function query_with_filters($show_all, $show_unchecked,
 									   $show_checked, $show_aproved) {
-		$query = Vid::newQuery();
+		$query = (new Vid)->newQuery();
 		
 		if ($show_all === 'true') {
 			// You don't have to do anything, you will query everything later
@@ -75,7 +75,6 @@ class VidRepository
 				$query->orWhere("state_id", VID_STATE_APROVED);
 			}
 		}
-
 		return $query;
 	}
 
