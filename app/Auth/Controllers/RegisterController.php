@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Auth\Requests\RegisterRequest;
 use App\Auth\Services\RegisterService;
 
+use Illuminate\Support\Facades\Auth;
+
 class RegisterController extends Controller
 {
 	private $registerService;
@@ -18,7 +20,10 @@ class RegisterController extends Controller
 
 	public function show()
 	{
-		return view('register.show');
+		if (Auth::check())
+            return view('login.already');
+        else
+			return view('register.show');
 	}
 
 	public function register(RegisterRequest $request)

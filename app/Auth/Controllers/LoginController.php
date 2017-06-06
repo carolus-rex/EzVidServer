@@ -4,10 +4,13 @@ namespace App\Auth\Controllers;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Auth;
+
 use App\Auth\LoginProxy;
 use App\Auth\Exceptions\InvalidCredentialsException;
 use App\Auth\Requests\LoginRequest;
 use App\Http\Controllers\Controller;
+
 
 class LoginController extends Controller
 {
@@ -32,7 +35,12 @@ class LoginController extends Controller
             session()->put('login_referer', $referer);
         }
 
-        return view('login.show');
+        if (Auth::check())
+            return view('login.already');
+        else
+            return view('login.show');
+
+
     }
 
     public function login(LoginRequest $request)
