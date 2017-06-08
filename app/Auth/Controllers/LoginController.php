@@ -58,7 +58,7 @@ class LoginController extends Controller
         return redirect(session()->pull('login_referer', $this->default_redirect))
                        ->cookie('access_token',
                                 $session_data['access_token'],
-                                $session_data['expires_in'],
+                                $session_data['expires_in'] / 60,
                                 null,
                                 null,
                                 false,
@@ -72,7 +72,7 @@ class LoginController extends Controller
         return redirect()->route('vids.index')
                          ->cookie('access_token',
                                   $session_data['access_token'],
-                                  $session_data['expires_in'],
+                                  $session_data['expires_in'] / 60,
                                   null,
                                   null,
                                   false,
