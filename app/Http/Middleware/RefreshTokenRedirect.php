@@ -6,8 +6,6 @@ use Closure;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 
-use App\Jobs\Deb;
-
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ServerException;
 use GuzzleHttp\Exception\ClientException;
@@ -24,10 +22,6 @@ class RefreshTokenRedirect
 
     public function handle($request, Closure $next)
     {
-        dispatch(new Deb('RefreshTokenExecute'));
-        dispatch(new Deb($request->url()));
-        dispatch(new Deb('This is the refresh token'));
-        dispatch(new Deb($request->cookie('refreshToken')));
         if (Auth::check() or ($request->routeIs('login.refresh'))) {
             // we have a user or we want to refresh, continue without problems
             return $next($request);
@@ -50,14 +44,12 @@ class RefreshTokenRedirect
                  'client_secret' => env('PASSWORD_CLIENT_SECRET'),
                  'grant_type'    => "refresh_token"]; //No Typo
 
-        dispatch(new Deb("Will call guzzle"));
         $client = new Client();
 
         try {
             $res = $client->request('POST',
                                     url("oauth/token"),
                                     ['form_params' => $data]);
-
         } catch (ServerException $e) { // 500
             // if something is wrong lets die or something, continue...
             return $request;
@@ -69,14 +61,13 @@ class RefreshTokenRedirect
         }
 
         $cookies = json_decode((string)($res->getBody()));
-        dispatch(new Deb("RESPONSE BODY"));
-        dispatch(new Deb($cookies->access_token));
-        dispatch(new Deb($cookies->refresh_token));
 
         //SET the access_token COOKIE in the CURRENT REQUEST
         $request->cookies->set('access_token', $cookies->access_token);
-
-        Cookie::queue(cookie('access_token',
+        
+        // We should not append cookies if we are loging out
+        if ($request->routeIs('login.logout')) {
+            Cookie::queue(cookie('access_token',
                              $cookies->access_token,
                              // passport returns time in seconds and
                              // cookie() expects time in minutes
@@ -86,13 +77,14 @@ class RefreshTokenRedirect
                              false,
                              true)); // Http only
 
-        Cookie::queue(cookie('refreshToken',
+            Cookie::queue(cookie('refreshToken',
                              $cookies->refresh_token,
                              14400, // 10 days
                              null,
                              null,
                              false,
                              true)); // Http only
+        }
 
         return $request;
     }

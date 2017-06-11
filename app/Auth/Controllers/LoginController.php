@@ -65,7 +65,7 @@ class LoginController extends Controller
                                 true); //httpOnly
     }
 
-    public function refresh()
+    public function refresh() // No idea why i keep using this
     {
         $session_data = $this->loginProxy->attemptRefresh();
 
