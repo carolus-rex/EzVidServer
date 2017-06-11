@@ -66,7 +66,7 @@ class RefreshTokenRedirect
         $request->cookies->set('access_token', $cookies->access_token);
         
         // We should not append cookies if we are loging out
-        if ($request->routeIs('login.logout')) {
+        if (!($request->routeIs('login.logout'))) {
             Cookie::queue(cookie('access_token',
                              $cookies->access_token,
                              // passport returns time in seconds and
