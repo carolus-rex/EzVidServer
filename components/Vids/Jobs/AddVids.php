@@ -64,6 +64,11 @@ class AddVids implements ShouldQueue
                 
                 $probejson = json_decode($process->getOutput(), true);
 
+				if (empty($probejson)){
+					dump(__("ffprobe devolvió un valor vacío, probablemente el video está dañado"));
+					continue;
+				}
+				
                 $width = $probejson["streams"][0]["width"];
                 $height = $probejson["streams"][0]["height"];
                 $thumbwidth = $THUMBSIZE;
