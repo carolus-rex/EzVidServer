@@ -3,10 +3,11 @@
 namespace Components\Vids\Services;
 
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 use Components\Vids\Repositories\VidRepository;
-
 use Components\Vids\Events\VidsDisplayWasRequested;
+use Components\Vids\Models\Vid;
 
 class VidService
 {
@@ -18,8 +19,8 @@ class VidService
 	}
 
 	public function setfilter($chosen_filter, $chosen_filter_val,
-							  $filters, $show_all, $response) {
-
+							  $filters, $show_all, $response) 
+	{
 		if ($chosen_filter != 'show_all') {
 			$filters[$chosen_filter] = $chosen_filter_val === 'true' ? 'false' : 'true';
 			
@@ -95,7 +96,7 @@ class VidService
 	public function show($name) {
 		$vid = $this->vidRepository->get($name);
 		
-		if ($vid->state == VID_STATE_UNCHECKED)
+		if ($vid->state_id == VID_STATE_UNCHECKED and (Auth::check() ? Auth::user()->can('check', Vid::class):false))
 			$this->vidRepository->update_state($name, VID_STATE_CHECKED);
 
 		return $vid;

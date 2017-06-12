@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class VidVote extends Model
 {
 	// Make sure we use the right table
-	protected $table = 'vids_votes'; 
+	protected $table = 'vids_votes';
+
+	public $timestamps = false;
 
 	public function vid()
 	{

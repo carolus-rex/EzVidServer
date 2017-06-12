@@ -104,8 +104,6 @@ class VidController extends Controller
         $vid = $this->vidService->show($name);
 		
 		return view("vids.show", ["vid" => $vid,
-								  "name" => $vid->name,
-								  "state" => $vid->state,
 								  "vidpath" => Storage::disk('vids')->url("$name.mp4")]);
     }
 	

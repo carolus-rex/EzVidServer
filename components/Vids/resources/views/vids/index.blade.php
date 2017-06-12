@@ -31,20 +31,20 @@
 		</div>
 		<!-- Vids -->
 		<div class="row">
-@foreach ($vids as $vid)
+		@foreach ($vids as $vid)
 
 			<div class="col-xs-{{$xs_colswidth}} col-sm-{{$sm_colswidth}} col-md-{{$md_colswidth}} col-lg-{{$lg_colswidth}}">
-				<a href="vids/{{$vid->name}}" class="thumbnail">
-					<img class="img-responsive" src={{"$thumbs_url/$vid->name"}}.png alt="{{$vid->name}}">
+				<a href="{{ route('vids.show', ['vid' => $vid->name]) }}" class="thumbnail">
+					<img class="img-responsive" src='{{"$thumbs_url/$vid->name"}}.png' alt="{{$vid->name}}">
 				</a>
 				<p class="text-center">
 					<b>@lang("Estado"):</b>
 					<br>
-					@lang(VID_STATE_STRING[$vid->state])
+					@lang(VID_STATE_STRING[$vid->state_id])
 				</p>
 			</div>
 
-@endforeach
+		@endforeach
 		</div>
 		<!-- Pagination -->
 		<div class="row">

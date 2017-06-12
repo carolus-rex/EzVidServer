@@ -35,4 +35,9 @@ class VidPolicy
     {
         return !($user->vids_votes()->where('vid_id', $vid->id)->count());
     }
+
+    public function check(User $user)
+    {
+        return ($user->role->id == 1 or $user->role->id == 2);
+    }
 }

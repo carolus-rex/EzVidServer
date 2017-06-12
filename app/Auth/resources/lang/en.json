@@ -12,5 +12,9 @@
 	"Confirma la contraseña": "Confirm the password",
 
 	"Haz sido registrado exitosamente": "You have been registered successfully",
-	"Haz clic aqui para ir a la página principal": "Click here to go to main page"
+	"Haz clic aqui para ir a la página principal": "Click here to go to main page",
+	
+	"Ya has iniciado sesión como ": "You are loged in as ",
+
+	"Haz clic aqui para salir y proseguir": "Click here to log out and proceed"
 }

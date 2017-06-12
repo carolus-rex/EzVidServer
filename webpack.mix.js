@@ -11,11 +11,11 @@ const { mix } = require('laravel-mix');
  |
  */
 
-mix.js('resources/assets/js/app.js', 'public/js');
+mix.js('app/Http/resources/assets/js/app.js', 'public/js');
 
-mix.styles(['resources/assets/sass/app.scss',
-			'resources/assets/sass/custom.scss',
-			'resources/assets/sass/bootstrap_popover.scss',
-			'resources/assets/sass/vids_show.scss'], 'resources/assets/sass/joined.scss' );
+mix.styles(['app/Http/resources/assets/sass/app.scss',
+			'app/Http/resources/assets/sass/custom.scss',
+			'components/Vids/resources/assets/sass/bootstrap_popover.scss',
+			'components/Vids/resources/assets/sass/vids_show.scss'], 'app/Http/resources/assets/sass/joined.scss' );
 
-mix.sass('resources/assets/sass/joined.scss', 'public/css/app.css');
+mix.sass('app/Http/resources/assets/sass/joined.scss', 'public/css/app.css');

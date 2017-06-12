@@ -76,3 +76,9 @@ app/Http/Controllers/TestController.php
 resources/assets/sass/bootstrap_popover.scss
 resources/assets/sass/joined.scss
 TODO.txt
+app/Http/resources/views/bootstrap/bones.blade.php
+app/Http/resources/views/bootstrap/paginate.blade.php
+app/Http/resources/views/bootstrap/grid.blade.php
+app/Http/resources/views/bootstrap/popover.blade.php
+app/Http/resources/views/bootstrap/navbar.blade.php
+app/Http/resources/assets/sass/joined.scss

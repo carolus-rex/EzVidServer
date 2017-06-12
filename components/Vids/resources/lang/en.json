@@ -22,5 +22,8 @@
 	"Ya votaste": "You have already voted",
 
 	"No lo borres, por favor D:": "Don't delete it, please D:",
-	"DESTRUYELO :D": "DESTROY IT :D"
+	"DESTRUYELO :D": "DESTROY IT :D",
+
+	"Demasiados videos, se ha creado un nuevo job": "Too many vids, a new job has been created",
+	"ffprobe devolvió un valor vacío, probablemente el video está dañado": "ffprobe returned empty, probably video is damaged"
 }
